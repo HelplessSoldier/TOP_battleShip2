@@ -33,13 +33,15 @@ class GameBoard {
     return true;
   }
 
-  addShip(ship, location, delta) {
-    const x = location[0];
-    const y = location[1];
-    const dx = delta[0];
-    const dy = delta[1];
+  addShip(ship) {
+    const x = ship.location[0];
+    const y = ship.location[1];
+    const dx = ship.delta[0];
+    const dy = ship.delta[1];
 
-    if (canAddShip(this.height, this.width, location, delta, ship.len)) {
+    if (
+      canAddShip(this.height, this.width, ship.location, ship.delta, ship.len)
+    ) {
       for (let i = 0; i < ship.len; i++) {
         this.grid[x + dx * i][y + dy * i] = this.shipSquare;
       }
