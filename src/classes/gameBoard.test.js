@@ -51,3 +51,18 @@ test("can attack ship", () => {
     ["empty", "empty", "empty"],
   ]);
 });
+
+test("board can tell if no alive ships", () => {
+  const testShip = new Ship(2, "anotherTestBoi", [0, 0], [1, 0]);
+  testBoard.addShip(testShip);
+  testBoard.receiveAttack([0, 0]);
+  testBoard.receiveAttack([1, 0]);
+  expect(testBoard.hasAliveShips()).toBe(false);
+});
+
+test("board can tell if alive ships", () => {
+  const testShip = new Ship(2, "anotherTestBoi", [0, 0], [1, 0]);
+  testBoard.addShip(testShip);
+  testBoard.receiveAttack([0, 0]);
+  expect(testBoard.hasAliveShips()).toBe(true);
+});

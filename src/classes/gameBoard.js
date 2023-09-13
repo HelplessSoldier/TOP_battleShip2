@@ -47,6 +47,17 @@ class GameBoard {
       }
     }
   }
+
+  hasAliveShips() {
+    for (let row of this.grid) {
+      for (let cell of row) {
+        if (cell === this.shipSquare) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
 
 module.exports = GameBoard;
