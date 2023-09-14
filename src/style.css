@@ -18,6 +18,7 @@
   height: 100vh;
 }
 
+/* ---- for username input page ----- */
 #content.userNamePage {
   display: flex;
   justify-content: center;
@@ -56,4 +57,54 @@
 
 #warningMessage {
   text-align: center;
+  margin-top: 30px;
+}
+
+/* ----- for board setup page ----- */
+#content.setupPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#shipSelectionContainer {
+  margin-left: 20px;
+}
+
+.shipContainer {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  margin-top: 20px;
+}
+
+.shipContainer:hover {
+  border: 2px solid orange;
+}
+
+.shipIcon {
+  max-height: 55px;
+  min-height: 50px;
+  width: 89px;
+}
+
+.shipName {
+  font-size: 21px;
+  text-align: center;
+}
+
+/* ----- board styling ----- */
+.boardContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  border: 1px solid white;
+  width: 55px;
+  height: 55px;
 }

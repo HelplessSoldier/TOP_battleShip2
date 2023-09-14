@@ -1,6 +1,7 @@
 import("./style.css");
 const renderPlayerNamePage = require("./pages/playerNamePage");
 const Game = require("./classes/game");
+const renderSetupPage = require("./pages/boardSetupPage");
 
 const root = document.getElementById("content");
 root.classList.add("userNamePage");
@@ -13,7 +14,8 @@ async function startGame() {
     const game = new Game(playerName, "Computer");
     root.innerHTML = "";
     root.classList.remove("userNamePage");
-    game.playerBoard.renderSelf(root);
+
+    renderSetupPage(game, root);
   } catch {
     console.error("Error: ", error);
   }
