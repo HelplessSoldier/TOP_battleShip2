@@ -102,7 +102,8 @@
 }
 
 #directionVerticalButton,
-#directionHorizontalButton {
+#directionHorizontalButton,
+#setupSubmitButton {
   margin: 13px;
   font-size: 21px;
   padding: 13px;

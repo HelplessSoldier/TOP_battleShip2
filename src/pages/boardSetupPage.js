@@ -1,4 +1,5 @@
 const createElement = require("../helpers/createElement");
+const allShipsUsed = require("./boardSetupFunctions/allShipsUsed");
 
 function renderSetupPage(game, root) {
   root.classList.add("setupPage");
@@ -13,12 +14,18 @@ function renderSetupPage(game, root) {
   const directionButtonsContainer = createElement("div", { id: "directionButtonsContainer" });
 
   const verticalButton = createElement("button", { id: "directionVerticalButton" }, "Vertical");
+  verticalButton.addEventListener("click", () => {
+    currentDelta = [1, 0];
+  });
 
   const horizontalButton = createElement(
     "button",
     { id: "directionHorizontalButton" },
     "Horizontal"
   );
+  horizontalButton.addEventListener("click", () => {
+    currentDelta = [0, 1];
+  });
 
   directionButtonsContainer.append(verticalButton, horizontalButton);
 
@@ -56,7 +63,23 @@ function renderSetupPage(game, root) {
     shipSelectionContainer.append(shipContainer);
   }
   boardAndSelectionContainer.append(shipSelectionContainer);
-  root.append(directionButtonsContainer, boardAndSelectionContainer);
+
+  // complete button -------------------------------------------------------------------------------
+  const submitButton = createElement("button", { id: "setupSubmitButton" }, "Finished");
+  const unfilledMessage = createElement(
+    "h2",
+    { id: "unfilledMessage" },
+    "Please place all ships. One or more are missing"
+  );
+  submitButton.addEventListener("click", () => {
+    if (allShipsUsed(defaultShipList)) {
+      console.log("hi c:");
+    } else {
+      root.append(unfilledMessage);
+    }
+  });
+
+  root.append(directionButtonsContainer, boardAndSelectionContainer, submitButton);
 }
 
 module.exports = renderSetupPage;
