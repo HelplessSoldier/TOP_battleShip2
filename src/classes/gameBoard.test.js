@@ -35,6 +35,18 @@ test("can't add ship oob", () => {
   ]);
 });
 
+test("can't add overlapping ship", () => {
+  const ship1 = new Ship(3, "ship1", [0, 0], [1, 0]);
+  const ship2 = new Ship(3, "ship2", [1, 0], [0, 1]);
+  testBoard.addShip(ship1);
+  testBoard.addShip(ship2);
+  expect(testBoard.grid).toEqual([
+    ["ship", "empty", "empty"],
+    ["ship", "empty", "empty"],
+    ["ship", "empty", "empty"],
+  ]);
+});
+
 test("can attack ship", () => {
   const testShip = new Ship(2, "anotherTestBoi", [0, 0], [1, 0]);
   testBoard.addShip(testShip);

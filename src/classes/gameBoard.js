@@ -40,7 +40,14 @@ class GameBoard {
     const dy = ship.delta[1];
 
     if (
-      canAddShip(this.height, this.width, ship.location, ship.delta, ship.len)
+      canAddShip(
+        this.height,
+        this.width,
+        ship.location,
+        ship.delta,
+        ship.len,
+        this.grid
+      )
     ) {
       for (let i = 0; i < ship.len; i++) {
         this.grid[x + dx * i][y + dy * i] = this.shipSquare;
