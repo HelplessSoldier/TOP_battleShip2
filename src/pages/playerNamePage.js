@@ -23,12 +23,18 @@ function renderPlayerNamePage(root) {
       "Submit"
     );
 
+    const warningMessage = createElement(
+      "h2",
+      { id: "warningMessage" },
+      "Please enter a username."
+    );
+
     submitButton.addEventListener("click", () => {
       const playerName = inputField.value.trim();
       if (playerName.length > 0) {
         resolve(playerName);
       } else {
-        reject(new Error("Player name is required"));
+        inputContainer.append(warningMessage);
       }
     });
 

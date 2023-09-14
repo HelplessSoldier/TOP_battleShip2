@@ -53,3 +53,7 @@
 #usernameSubmitButton:hover {
   background-color: var(--element-background-color);
 }
+
+#warningMessage {
+  text-align: center;
+}
