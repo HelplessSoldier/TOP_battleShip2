@@ -1,4 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Inter&family=Poppins:wght@500&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300&family=VT323&display=swap");
+
+:root {
+  --background-color: rgb(34, 34, 34);
+  --element-background-color: rgb(13, 13, 13);
+}
+
 * {
   color: white;
-  background-color: rgb(20, 20, 20);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  font-family: "Bebas Neue";
+}
+
+#content {
+  width: 100vw;
+  height: 100vh;
+}
+
+#content.userNamePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#usernameInputContainer > * {
+  padding: 10px;
+  font-size: 40px;
+}
+
+#usernameInputLabel {
+  margin-left: 20px;
+}
+
+#usernameInput {
+  outline: none;
+  border-radius: 20px;
+}
+
+#usernameInput:focus {
+  background-color: var(--element-background-color);
+}
+
+#usernameSubmitButton {
+  margin-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 40px;
+  margin-left: 20px;
+}
+
+#usernameSubmitButton:hover {
+  background-color: var(--element-background-color);
 }

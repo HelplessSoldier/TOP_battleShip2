@@ -67,7 +67,8 @@ class GameBoard {
     return false;
   }
 
-  renderSelf(root) {
+  renderSelf(root, shipsVisible) {
+    root.classList.add("setupPage");
     const boardContainer = createElement("div", { class: "boardContainer" });
     for (let row of this.grid) {
       const rowElement = createElement("div", { class: "row" });
