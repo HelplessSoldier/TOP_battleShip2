@@ -65,10 +65,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 #shipSelectionContainer {
-  margin-left: 20px;
+  margin-left: 21px;
 }
 
 .shipContainer {
@@ -91,6 +92,26 @@
 .shipName {
   font-size: 21px;
   text-align: center;
+}
+
+#directionButtonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 21px;
+}
+
+#directionVerticalButton,
+#directionHorizontalButton {
+  margin: 13px;
+  font-size: 21px;
+  padding: 13px;
+}
+
+#boardAndSelectionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ----- board styling ----- */

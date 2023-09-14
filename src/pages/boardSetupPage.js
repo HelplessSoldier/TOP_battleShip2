@@ -1,15 +1,37 @@
 const createElement = require("../helpers/createElement");
 
 function renderSetupPage(game, root) {
+  root.classList.add("setupPage");
   let selectedShip = null;
   let lastSelected = null;
 
-  game.playerBoard.renderSelf(root);
+  let boardAndSelectionContainer = createElement("div", { id: "boardAndSelectionContainer" });
+
+  // ship direction buttons ------------------------------------------------------------------------
+  let currentDelta = [1, 0];
+
+  const directionButtonsContainer = createElement("div", { id: "directionButtonsContainer" });
+
+  const verticalButton = createElement("button", { id: "directionVerticalButton" }, "Vertical");
+
+  const horizontalButton = createElement(
+    "button",
+    { id: "directionHorizontalButton" },
+    "Horizontal"
+  );
+
+  directionButtonsContainer.append(verticalButton, horizontalButton);
+
+  // board -----------------------------------------------------------------------------------------
+  game.playerBoard.renderSelf(boardAndSelectionContainer);
+
+  // ship selection --------------------------------------------------------------------------------
   const defaultShipList = game.getDefaultShipList();
 
   const shipSelectionContainer = createElement("div", {
     id: "shipSelectionContainer",
   });
+
   for (let ship of defaultShipList) {
     const shipContainer = createElement("div", { class: "shipContainer" });
 
@@ -33,7 +55,8 @@ function renderSetupPage(game, root) {
     shipContainer.append(shipIcon, shipName);
     shipSelectionContainer.append(shipContainer);
   }
-  root.append(shipSelectionContainer);
+  boardAndSelectionContainer.append(shipSelectionContainer);
+  root.append(directionButtonsContainer, boardAndSelectionContainer);
 }
 
 module.exports = renderSetupPage;
