@@ -1,5 +1,6 @@
 const create2dArray = require("./gameBoardFunctions/create2dArray");
 const canAddShip = require("./gameBoardFunctions/canAddShip");
+const createElement = require("../helpers/createElement");
 
 class GameBoard {
   constructor(width, height) {
@@ -64,6 +65,19 @@ class GameBoard {
       }
     }
     return false;
+  }
+
+  renderSelf(root) {
+    const boardContainer = createElement("div", { class: "boardContainer" });
+    for (let row of this.grid) {
+      const rowElement = createElement("div", { class: "row" });
+      for (let cell of row) {
+        const cellElement = createElement("div", { class: "cell" });
+        rowElement.append(cellElement);
+      }
+      boardContainer.append(rowElement);
+    }
+    root.append(boardContainer);
   }
 }
 
