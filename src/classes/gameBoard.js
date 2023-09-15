@@ -51,8 +51,21 @@ class GameBoard {
   }
 
   removeShip(ship) {
+    const x = ship.location[0];
+    const y = ship.location[1];
+    const dx = ship.delta[0];
+    const dy = ship.delta[1];
+
     for (let i = 0; i < ship.len; i++) {
       this.grid[x + dx * i][y + dy * i] = this.fill;
+    }
+
+    const indexToRemove = this.addedShips.findIndex(
+      existingShip => existingShip.name === ship.name
+    );
+
+    if (indexToRemove !== -1) {
+      this.addedShips.splice(indexToRemove, 1);
     }
   }
 

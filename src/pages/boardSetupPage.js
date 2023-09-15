@@ -81,6 +81,9 @@ function renderSetupPage(game, root) {
     const shipName = createElement("p", { class: "shipName" }, ship.name);
 
     const removeShipButton = createElement("img", { class: "removeShipButton", src: xSvg });
+    removeShipButton.addEventListener("click", () => {
+      game.playerBoard.removeShip(ship);
+    });
 
     shipContainer.append(shipIcon, shipName);
     shipAndRemoveButtonContainer.append(shipContainer, removeShipButton);
