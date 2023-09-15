@@ -10,6 +10,7 @@ class GameBoard {
     this.impact = "impact";
     this.shipSquare = "ship";
     this.hitShip = "hitShip";
+    this.preview = "preview";
     this.grid = create2dArray(width, height, this.fill);
   }
 
@@ -77,9 +78,31 @@ class GameBoard {
         });
 
         if (this.grid[i][j] === "preview") {
+          cellElement.style.backgroundColor = "red";
+        }
+
+        if (this.grid[i][j] === this.shipSquare && shipsVisible) {
           cellElement.style.backgroundColor = "orange";
         }
 
+        cellElement.addEventListener("click", () => {
+          selectedShip.delta = currentDelta;
+          selectedShip.location = [i, j];
+          console.log(`location: ${selectedShip.location} delta: ${selectedShip.delta}`);
+          if (
+            canAddShip(
+              this.height,
+              this.width,
+              selectedShip.location,
+              selectedShip.delta,
+              selectedShip.len,
+              this.grid
+            )
+          ) {
+            console.log(`adding ship: ${selectedShip}`);
+            this.addShip(selectedShip);
+          }
+        });
         rowElement.append(cellElement);
       }
       boardContainer.append(rowElement);
@@ -88,8 +111,19 @@ class GameBoard {
   }
 
   _previewHighlight(selectedShip, currentDelta, x, y) {
+    this._clearPreview();
     for (let i = 0; i < selectedShip.len; i++) {
-      this.grid[currentDelta[0] * i + x][currentDelta[1] * i + y] = "preview";
+      this.grid[currentDelta[0] * i + x][currentDelta[1] * i + y] = this.preview;
+    }
+  }
+
+  _clearPreview() {
+    for (let i = 0; i < this.height; i++) {
+      for (let j = 0; j < this.width; j++) {
+        if (this.grid[i][j] === this.preview) {
+          this.grid[i][j] = this.fill;
+        }
+      }
     }
   }
 }

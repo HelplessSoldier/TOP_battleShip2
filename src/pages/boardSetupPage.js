@@ -40,7 +40,7 @@ function renderSetupPage(game, root) {
   function updateBoard() {
     gameBoardContainer.innerHTML = "";
 
-    const gameBoardElement = game.playerBoard.renderSelf(false, selectedShip, currentDelta);
+    const gameBoardElement = game.playerBoard.renderSelf(true, selectedShip, currentDelta);
     gameBoardContainer.append(gameBoardElement);
 
     if (running) {
