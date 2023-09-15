@@ -51,6 +51,9 @@ class GameBoard {
   }
 
   removeShip(ship) {
+    if (ship.location === null) {
+      return;
+    }
     const x = ship.location[0];
     const y = ship.location[1];
     const dx = ship.delta[0];
@@ -67,6 +70,9 @@ class GameBoard {
     if (indexToRemove !== -1) {
       this.addedShips.splice(indexToRemove, 1);
     }
+
+    ship.location = null;
+    ship.delta = null;
   }
 
   hasAliveShips() {
