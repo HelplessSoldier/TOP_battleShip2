@@ -6,12 +6,16 @@ function renderSetupPage(game, root) {
   let selectedShip = null;
   let lastSelected = null;
 
-  let boardAndSelectionContainer = createElement("div", { id: "boardAndSelectionContainer" });
+  let boardAndSelectionContainer = createElement("div", {
+    id: "boardAndSelectionContainer"
+  });
 
   // ship direction buttons ------------------------------------------------------------------------
   let currentDelta = [1, 0];
 
-  const directionButtonsContainer = createElement("div", { id: "directionButtonsContainer" });
+  const directionButtonsContainer = createElement("div", {
+    id: "directionButtonsContainer"
+  });
 
   const verticalButton = createElement("button", { id: "directionVerticalButton" }, "Vertical");
   verticalButton.addEventListener("click", () => {
@@ -36,7 +40,7 @@ function renderSetupPage(game, root) {
   const defaultShipList = game.getDefaultShipList();
 
   const shipSelectionContainer = createElement("div", {
-    id: "shipSelectionContainer",
+    id: "shipSelectionContainer"
   });
 
   for (let ship of defaultShipList) {
@@ -54,7 +58,7 @@ function renderSetupPage(game, root) {
 
     const shipIcon = createElement("img", {
       class: "shipIcon",
-      src: ship.iconSrc,
+      src: ship.iconSrc
     });
 
     const shipName = createElement("p", { class: "shipName" }, ship.name);
@@ -73,6 +77,7 @@ function renderSetupPage(game, root) {
   );
   submitButton.addEventListener("click", () => {
     if (allShipsUsed(defaultShipList)) {
+      // this should go to the actual game
       console.log("hi c:");
     } else {
       root.append(unfilledMessage);
