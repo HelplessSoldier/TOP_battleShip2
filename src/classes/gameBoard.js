@@ -12,6 +12,7 @@ class GameBoard {
     this.hitShip = "hitShip";
     this.preview = "preview";
     this.grid = create2dArray(width, height, this.fill);
+    this.addedShips = [];
   }
 
   receiveAttack(location) {
@@ -45,6 +46,7 @@ class GameBoard {
       for (let i = 0; i < ship.len; i++) {
         this.grid[x + dx * i][y + dy * i] = this.shipSquare;
       }
+      this.addedShips.push(ship);
     }
   }
 
@@ -80,7 +82,8 @@ class GameBoard {
               selectedShip.delta,
               selectedShip.len,
               this.grid
-            )
+            ) &&
+            !this._inAddedShips(selectedShip)
           ) {
             console.log(`adding ship: ${selectedShip}`);
             this.addShip(selectedShip);
@@ -126,6 +129,15 @@ class GameBoard {
         }
       }
     }
+  }
+
+  _inAddedShips(addAttemptShip) {
+    for (let ship of this.addedShips) {
+      if (ship.name === addAttemptShip.name) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
