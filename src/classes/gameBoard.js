@@ -68,24 +68,7 @@ class GameBoard {
       for (let j = 0; j < this.width; j++) {
         const cellElement = createElement("div", { class: "cell" });
 
-        cellElement.addEventListener("mouseover", () => {
-          if (
-            selectedShip !== null &&
-            canAddShip(this.height, this.width, [i, j], currentDelta, selectedShip.len, this.grid)
-          ) {
-            this._previewHighlight(selectedShip, currentDelta, i, j);
-          }
-        });
-
-        if (this.grid[i][j] === "preview") {
-          cellElement.style.backgroundColor = "red";
-        }
-
-        if (this.grid[i][j] === this.shipSquare && shipsVisible) {
-          cellElement.style.backgroundColor = "orange";
-        }
-
-        cellElement.addEventListener("click", () => {
+        cellElement.addEventListener("mousedown", () => {
           selectedShip.delta = currentDelta;
           selectedShip.location = [i, j];
           console.log(`location: ${selectedShip.location} delta: ${selectedShip.delta}`);
@@ -103,6 +86,24 @@ class GameBoard {
             this.addShip(selectedShip);
           }
         });
+
+        cellElement.addEventListener("mouseover", () => {
+          if (
+            selectedShip !== null &&
+            canAddShip(this.height, this.width, [i, j], currentDelta, selectedShip.len, this.grid)
+          ) {
+            this._previewHighlight(selectedShip, currentDelta, i, j);
+          }
+        });
+
+        if (this.grid[i][j] === "preview") {
+          cellElement.style.backgroundColor = "red";
+        }
+
+        if (this.grid[i][j] === this.shipSquare && shipsVisible) {
+          cellElement.style.backgroundColor = "orange";
+        }
+
         rowElement.append(cellElement);
       }
       boardContainer.append(rowElement);
