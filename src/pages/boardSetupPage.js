@@ -34,7 +34,21 @@ function renderSetupPage(game, root) {
   directionButtonsContainer.append(verticalButton, horizontalButton);
 
   // board -----------------------------------------------------------------------------------------
-  game.playerBoard.renderSelf(boardAndSelectionContainer);
+  const gameBoardContainer = createElement("div", { id: "gameBoardContainer" });
+  let running = true;
+
+  function updateBoard() {
+    gameBoardContainer.innerHTML = "";
+
+    const gameBoardElement = game.playerBoard.renderSelf(false, selectedShip, currentDelta);
+    gameBoardContainer.append(gameBoardElement);
+
+    if (running) {
+      requestAnimationFrame(updateBoard);
+    }
+  }
+
+  updateBoard();
 
   // ship selection --------------------------------------------------------------------------------
   const defaultShipList = game.getDefaultShipList();
@@ -53,7 +67,6 @@ function renderSetupPage(game, root) {
       }
       lastSelected = shipContainer;
       shipContainer.style.backgroundColor = "#FFFFFF";
-      console.log(selectedShip);
     });
 
     const shipIcon = createElement("img", {
@@ -66,7 +79,7 @@ function renderSetupPage(game, root) {
     shipContainer.append(shipIcon, shipName);
     shipSelectionContainer.append(shipContainer);
   }
-  boardAndSelectionContainer.append(shipSelectionContainer);
+  boardAndSelectionContainer.append(gameBoardContainer, shipSelectionContainer);
 
   // complete button -------------------------------------------------------------------------------
   const submitButton = createElement("button", { id: "setupSubmitButton" }, "Finished");

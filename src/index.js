@@ -16,7 +16,7 @@ async function startGame() {
     root.classList.remove("userNamePage");
 
     renderSetupPage(game, root);
-  } catch {
+  } catch (error) {
     console.error("Error: ", error);
   }
 }

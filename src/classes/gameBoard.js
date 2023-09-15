@@ -40,16 +40,7 @@ class GameBoard {
     const dx = ship.delta[0];
     const dy = ship.delta[1];
 
-    if (
-      canAddShip(
-        this.height,
-        this.width,
-        ship.location,
-        ship.delta,
-        ship.len,
-        this.grid
-      )
-    ) {
+    if (canAddShip(this.height, this.width, ship.location, ship.delta, ship.len, this.grid)) {
       for (let i = 0; i < ship.len; i++) {
         this.grid[x + dx * i][y + dy * i] = this.shipSquare;
       }
@@ -67,18 +58,39 @@ class GameBoard {
     return false;
   }
 
-  renderSelf(root, shipsVisible) {
-    root.classList.add("setupPage");
+  renderSelf(shipsVisible, selectedShip, currentDelta) {
     const boardContainer = createElement("div", { class: "boardContainer" });
-    for (let row of this.grid) {
+
+    for (let i = 0; i < this.height; i++) {
       const rowElement = createElement("div", { class: "row" });
-      for (let cell of row) {
+
+      for (let j = 0; j < this.width; j++) {
         const cellElement = createElement("div", { class: "cell" });
+
+        cellElement.addEventListener("mouseover", () => {
+          if (
+            selectedShip !== null &&
+            canAddShip(this.height, this.width, [i, j], currentDelta, selectedShip.len, this.grid)
+          ) {
+            this._previewHighlight(selectedShip, currentDelta, i, j);
+          }
+        });
+
+        if (this.grid[i][j] === "preview") {
+          cellElement.style.backgroundColor = "orange";
+        }
+
         rowElement.append(cellElement);
       }
       boardContainer.append(rowElement);
     }
-    root.append(boardContainer);
+    return boardContainer;
+  }
+
+  _previewHighlight(selectedShip, currentDelta, x, y) {
+    for (let i = 0; i < selectedShip.len; i++) {
+      this.grid[currentDelta[0] * i + x][currentDelta[1] * i + y] = "preview";
+    }
   }
 }
 
