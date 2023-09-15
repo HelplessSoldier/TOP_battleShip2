@@ -1,5 +1,6 @@
 const createElement = require("../helpers/createElement");
 const allShipsUsed = require("./boardSetupFunctions/allShipsUsed");
+const xSvg = require("../assets/x-symbol-svgrepo-com.svg");
 
 function renderSetupPage(game, root) {
   root.classList.add("setupPage");
@@ -58,6 +59,9 @@ function renderSetupPage(game, root) {
   });
 
   for (let ship of defaultShipList) {
+    const shipAndRemoveButtonContainer = createElement("div", {
+      class: "shipAndRemoveButtonContainer"
+    });
     const shipContainer = createElement("div", { class: "shipContainer" });
 
     shipContainer.addEventListener("click", () => {
@@ -76,8 +80,11 @@ function renderSetupPage(game, root) {
 
     const shipName = createElement("p", { class: "shipName" }, ship.name);
 
+    const removeShipButton = createElement("img", { class: "removeShipButton", src: xSvg });
+
     shipContainer.append(shipIcon, shipName);
-    shipSelectionContainer.append(shipContainer);
+    shipAndRemoveButtonContainer.append(shipContainer, removeShipButton);
+    shipSelectionContainer.append(shipAndRemoveButtonContainer);
   }
   boardAndSelectionContainer.append(gameBoardContainer, shipSelectionContainer);
 

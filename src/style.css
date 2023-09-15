@@ -115,6 +115,15 @@
   align-items: center;
 }
 
+.removeShipButton {
+  max-width: 21px;
+}
+
+.shipAndRemoveButtonContainer {
+  display: flex;
+  gap: 10px;
+}
+
 /* ----- board styling ----- */
 .boardContainer {
   display: flex;

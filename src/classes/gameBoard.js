@@ -50,6 +50,12 @@ class GameBoard {
     }
   }
 
+  removeShip(ship) {
+    for (let i = 0; i < ship.len; i++) {
+      this.grid[x + dx * i][y + dy * i] = this.fill;
+    }
+  }
+
   hasAliveShips() {
     for (let row of this.grid) {
       for (let cell of row) {
