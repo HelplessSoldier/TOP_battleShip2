@@ -54,6 +54,7 @@ class GameBoard {
     if (ship.location === null) {
       return;
     }
+
     const x = ship.location[0];
     const y = ship.location[1];
     const dx = ship.delta[0];
@@ -98,7 +99,6 @@ class GameBoard {
         cellElement.addEventListener("mousedown", () => {
           selectedShip.delta = currentDelta;
           selectedShip.location = [i, j];
-          console.log(`location: ${selectedShip.location} delta: ${selectedShip.delta}`);
           if (
             canAddShip(
               this.height,
@@ -110,7 +110,6 @@ class GameBoard {
             ) &&
             !this._inAddedShips(selectedShip)
           ) {
-            console.log(`adding ship: ${selectedShip}`);
             this.addShip(selectedShip);
           }
         });
