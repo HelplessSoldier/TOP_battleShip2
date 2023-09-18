@@ -2,6 +2,7 @@ const create2dArray = require("./gameBoardFunctions/create2dArray");
 const canAddShip = require("./gameBoardFunctions/canAddShip");
 const createElement = require("../helpers/createElement");
 const enemyMove = require("./gameBoardFunctions/enemyMove");
+const sunkCheck = require("./gameBoardFunctions/sunkCheck");
 
 class GameBoard {
   constructor(width, height) {
@@ -12,6 +13,7 @@ class GameBoard {
     this.shipSquare = "ship";
     this.hitShip = "hitShip";
     this.preview = "preview";
+    this.sunkShip = "sunkShip";
     this.grid = create2dArray(width, height, this.fill);
     this.addedShips = [];
   }
@@ -24,6 +26,17 @@ class GameBoard {
       this.grid[x][y] = this.hitShip;
     } else if (this.grid[x][y] === this.fill) {
       this.grid[x][y] = this.impact;
+    }
+  }
+
+  sinkShip(ship) {
+    const x = ship.location[0];
+    const y = ship.location[1];
+    const dx = ship.delta[0];
+    const dy = ship.delta[1];
+
+    for (let i = 0; i < ship.len; i++) {
+      this.grid[x + (i * dx)][y + (i * dy)] = this.sunkShip;
     }
   }
 
@@ -132,6 +145,10 @@ class GameBoard {
           cellElement.style.backgroundColor = "orange";
         }
 
+        if (this.grid[i][j] === this.sunkShip) {
+          cellElement.style.backgroundColor = "black";
+        }
+
         rowElement.append(cellElement);
       }
       boardContainer.append(rowElement);
@@ -157,7 +174,7 @@ class GameBoard {
 
         if (!isPlayer) {
           cellElement.addEventListener("mouseover", () => {
-            if (squareValue !== this.hitShip && squareValue !== this.impact) {
+            if (squareValue !== this.hitShip && squareValue !== this.impact && squareValue !== this.sunkShip) {
               cellElement.style.backgroundColor = "#fffb29";
             }
           });
@@ -166,6 +183,7 @@ class GameBoard {
             squareValue = this.grid[i][j];
             if (squareValue !== this.hitShip && squareValue !== this.impact) {
               this.receiveAttack([i, j]);
+              sunkCheck(game);
               enemyMove(game);
             }
           });
@@ -177,6 +195,10 @@ class GameBoard {
 
         if (squareValue === this.hitShip) {
           cellElement.style.backgroundColor = "red";
+        }
+
+        if (squareValue === this.sunkShip) {
+          cellElement.style.backgroundColor = "orange";
         }
 
         rowElement.append(cellElement);
