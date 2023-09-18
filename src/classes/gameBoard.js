@@ -146,7 +146,7 @@ class GameBoard {
 
       for (let j = 0; j < this.width; j++) {
         const cellElement = createElement("div", { class: "cell" });
-        const squareValue = this.grid[i][j];
+        let squareValue = this.grid[i][j];
 
         if (isPlayer) {
           if (squareValue === this.shipSquare) {
@@ -157,7 +157,16 @@ class GameBoard {
         if (!isPlayer) {
           cellElement.addEventListener("mouseover", () => {
             cellElement.style.backgroundColor = "#fffb29";
-          })
+          });
+
+          cellElement.addEventListener("mousedown", () => {
+            squareValue = this.grid[i][j];
+            if (squareValue !== this.hitShip && squareValue !== this.impact) {
+              this.receiveAttack([i, j]);
+              this._enemyMove();
+              console.log(this.grid);
+            }
+          });
         }
 
         if (squareValue === this.impact) {
@@ -168,14 +177,15 @@ class GameBoard {
           cellElement.style.backgroundColor = "red";
         }
 
-
-
-
         rowElement.append(cellElement);
       }
       boardContainer.append(rowElement);
     }
     return boardContainer
+  }
+
+  _enemyMove() {
+    console.log("hi c:");
   }
 
   _previewHighlight(selectedShip, currentDelta, x, y) {

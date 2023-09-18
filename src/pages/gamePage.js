@@ -9,14 +9,18 @@ function renderGamePage(game, parent) {
     boardsContainer.innerHTML = ""
 
     const playerBoardContainer = createElement("div", { id: "playerBoardContainer" });
+    const playerNameText = game.player.name;
+    const playerTitleBar = createElement("h2", { class: "boardTitle" }, playerNameText);
     const playerShipsVisible = true;
     const playerBoard = game.playerBoard.renderSelfGameplay(playerShipsVisible, true);
-    playerBoardContainer.append(playerBoard);
+    playerBoardContainer.append(playerTitleBar, playerBoard);
 
     const cpuBoardContainer = createElement("div", { id: "cpuBoardContainer" });
+    const cpuNameText = game.cpu.name;
+    const cpuTitleBar = createElement("h2", { class: "boardTitle" }, cpuNameText);
     const cpuShipsVisible = false;
     const cpuBoard = game.cpuBoard.renderSelfGameplay(cpuShipsVisible, false);
-    cpuBoardContainer.append(cpuBoard);
+    cpuBoardContainer.append(cpuTitleBar, cpuBoard);
 
     boardsContainer.append(playerBoardContainer, cpuBoardContainer);
 
