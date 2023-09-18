@@ -16,6 +16,7 @@ class Game {
     this.cpu = new CpuPlayer(cpuName, this);
     this.playerBoard = new GameBoard(10, 10, "empty");
     this.cpuBoard = new GameBoard(10, 10, "empty");
+    this.generateRandomBoard(this.cpuBoard, this.cpu);
   }
 
   getDefaultShipList() {
