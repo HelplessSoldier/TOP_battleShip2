@@ -1,6 +1,7 @@
 const create2dArray = require("./gameBoardFunctions/create2dArray");
 const canAddShip = require("./gameBoardFunctions/canAddShip");
 const createElement = require("../helpers/createElement");
+const enemyMove = require("./gameBoardFunctions/enemyMove");
 
 class GameBoard {
   constructor(width, height) {
@@ -138,7 +139,7 @@ class GameBoard {
     return boardContainer;
   }
 
-  renderSelfGameplay(shipsVisible, isPlayer) {
+  renderSelfGameplay(isPlayer, game) {
     const boardContainer = createElement("div", { class: "gameplayBoardContainer" });
 
     for (let i = 0; i < this.height; i++) {
@@ -156,15 +157,16 @@ class GameBoard {
 
         if (!isPlayer) {
           cellElement.addEventListener("mouseover", () => {
-            cellElement.style.backgroundColor = "#fffb29";
+            if (squareValue !== this.hitShip && squareValue !== this.impact) {
+              cellElement.style.backgroundColor = "#fffb29";
+            }
           });
 
           cellElement.addEventListener("mousedown", () => {
             squareValue = this.grid[i][j];
             if (squareValue !== this.hitShip && squareValue !== this.impact) {
               this.receiveAttack([i, j]);
-              this._enemyMove();
-              console.log(this.grid);
+              enemyMove(game);
             }
           });
         }
@@ -182,10 +184,6 @@ class GameBoard {
       boardContainer.append(rowElement);
     }
     return boardContainer
-  }
-
-  _enemyMove() {
-    console.log("hi c:");
   }
 
   _previewHighlight(selectedShip, currentDelta, x, y) {
