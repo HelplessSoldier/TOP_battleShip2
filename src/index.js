@@ -2,9 +2,12 @@ import("./style.css");
 const renderPlayerNamePage = require("./pages/playerNamePage");
 const Game = require("./classes/game");
 const renderSetupPage = require("./pages/boardSetupPage");
+const renderWinnerPage = require("./pages/winnerPage");
 
 const root = document.getElementById("content");
 root.classList.add("userNamePage");
+
+console.log(`index: ${typeof root}`);
 
 async function startGame() {
   try {
@@ -12,6 +15,17 @@ async function startGame() {
     const game = new Game(playerName, "Computer");
     root.innerHTML = "";
     root.classList.remove("userNamePage");
+
+
+    document.addEventListener("winnerPlayer", () => {
+      let winnerName = game.player.name;
+      renderWinnerPage(winnerName, root);
+    })
+
+    document.addEventListener("winnerCpu", () => {
+      let winnerName = game.cpu.name;
+      renderWinnerPage(winnerName, root);
+    })
 
     renderSetupPage(game, root);
   } catch (error) {

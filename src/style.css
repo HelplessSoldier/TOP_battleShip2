@@ -151,7 +151,9 @@
   gap: 55px;
 }
 
-
-
+/* ----- winner page ----- */
+#winnerText {
+  font-size: 13vh;
+}
 
 

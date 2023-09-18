@@ -3,6 +3,8 @@ const canAddShip = require("./gameBoardFunctions/canAddShip");
 const createElement = require("../helpers/createElement");
 const enemyMove = require("./gameBoardFunctions/enemyMove");
 const sunkCheck = require("./gameBoardFunctions/sunkCheck");
+const renderWinnderPage = require("../pages/winnerPage");
+const renderWinnerPage = require("../pages/winnerPage");
 
 class GameBoard {
   constructor(width, height) {
@@ -90,8 +92,8 @@ class GameBoard {
     ship.delta = null;
   }
 
-  hasAliveShips() {
-    for (let row of this.grid) {
+  hasAliveShips(board) {
+    for (let row of board) {
       for (let cell of row) {
         if (cell === this.shipSquare) {
           return true;
@@ -157,6 +159,7 @@ class GameBoard {
   }
 
   renderSelfGameplay(isPlayer, game) {
+
     const boardContainer = createElement("div", { class: "gameplayBoardContainer" });
 
     for (let i = 0; i < this.height; i++) {
@@ -181,10 +184,21 @@ class GameBoard {
 
           cellElement.addEventListener("mousedown", () => {
             squareValue = this.grid[i][j];
-            if (squareValue !== this.hitShip && squareValue !== this.impact) {
+            if (squareValue !== this.hitShip && squareValue !== this.impact && squareValue !== this.sunkShip) {
+
               this.receiveAttack([i, j]);
               sunkCheck(game);
+
+              if (!this.hasAliveShips(game.cpuBoard.grid)) {
+                let winnerEvent = new Event("winnerPlayer");
+                document.dispatchEvent(winnerEvent);
+              }
+
               enemyMove(game);
+              if (!this.hasAliveShips(game.playerBoard.grid)) {
+                let winnerEvent = new Event("winnerCpu");
+                document.dispatchEvent(winnerEvent);
+              }
             }
           });
         }

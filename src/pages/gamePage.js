@@ -27,7 +27,7 @@ function renderGamePage(game, parent) {
     }
   }
 
-  renderBoards();
+  renderBoards(parent);
 
   parent.append(boardsContainer);
 }
