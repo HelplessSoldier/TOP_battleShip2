@@ -1,6 +1,7 @@
 const createElement = require("../helpers/createElement");
 const allShipsUsed = require("./boardSetupFunctions/allShipsUsed");
 const xSvg = require("../assets/x-symbol-svgrepo-com.svg");
+const renderGamePage = require("./gamePage");
 
 function renderSetupPage(game, root) {
   root.classList.add("setupPage");
@@ -41,7 +42,7 @@ function renderSetupPage(game, root) {
   function updateBoard() {
     gameBoardContainer.innerHTML = "";
 
-    const gameBoardElement = game.playerBoard.renderSelf(true, selectedShip, currentDelta);
+    const gameBoardElement = game.playerBoard.renderSelfSetup(true, selectedShip, currentDelta);
     gameBoardContainer.append(gameBoardElement);
 
     if (running) {
@@ -104,8 +105,7 @@ function renderSetupPage(game, root) {
   );
   submitButton.addEventListener("click", () => {
     if (allShipsUsed(defaultShipList)) {
-      // this should go to the actual game
-      console.log("hi c:");
+      renderGamePage(game, root);
     } else {
       root.append(unfilledMessage);
     }

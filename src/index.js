@@ -6,8 +6,6 @@ const renderSetupPage = require("./pages/boardSetupPage");
 const root = document.getElementById("content");
 root.classList.add("userNamePage");
 
-startGame();
-
 async function startGame() {
   try {
     const playerName = await renderPlayerNamePage(root);
@@ -20,3 +18,5 @@ async function startGame() {
     console.error("Error: ", error);
   }
 }
+
+startGame();

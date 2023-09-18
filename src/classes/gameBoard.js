@@ -87,7 +87,7 @@ class GameBoard {
     return false;
   }
 
-  renderSelf(shipsVisible, selectedShip, currentDelta) {
+  renderSelfSetup(shipsVisible, selectedShip, currentDelta) {
     const boardContainer = createElement("div", { class: "boardContainer" });
 
     for (let i = 0; i < this.height; i++) {
@@ -136,6 +136,46 @@ class GameBoard {
       boardContainer.append(rowElement);
     }
     return boardContainer;
+  }
+
+  renderSelfGameplay(shipsVisible, isPlayer) {
+    const boardContainer = createElement("div", { class: "gameplayBoardContainer" });
+
+    for (let i = 0; i < this.height; i++) {
+      const rowElement = createElement("div", { class: "row" });
+
+      for (let j = 0; j < this.width; j++) {
+        const cellElement = createElement("div", { class: "cell" });
+        const squareValue = this.grid[i][j];
+
+        if (isPlayer) {
+          if (squareValue === this.shipSquare) {
+            cellElement.style.backgroundColor = "orange";
+          }
+        }
+
+        if (!isPlayer) {
+          cellElement.addEventListener("mouseover", () => {
+            cellElement.style.backgroundColor = "#fffb29";
+          })
+        }
+
+        if (squareValue === this.impact) {
+          cellElement.style.backgroundColor = "#20509e";
+        }
+
+        if (squareValue === this.hitShip) {
+          cellElement.style.backgroundColor = "red";
+        }
+
+
+
+
+        rowElement.append(cellElement);
+      }
+      boardContainer.append(rowElement);
+    }
+    return boardContainer
   }
 
   _previewHighlight(selectedShip, currentDelta, x, y) {

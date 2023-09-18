@@ -109,6 +109,10 @@
   padding: 13px;
 }
 
+#setupSubmitButton {
+  margin-top: 21px;
+}
+
 #boardAndSelectionContainer {
   display: flex;
   justify-content: center;
@@ -139,3 +143,14 @@
   width: 55px;
   height: 55px;
 }
+
+/* ----- gameplay page ----- */
+#boardsContainer {
+  display: flex;
+  gap: 55px;
+}
+
+
+
+
+

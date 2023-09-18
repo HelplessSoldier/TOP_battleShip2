@@ -12,10 +12,10 @@ function renderPlayerNamePage(root) {
       "Username: "
     );
 
-    const inputField = createElement("input", {
-      id: "usernameInput",
-      type: "text",
-    });
+    const inputField = createElement(
+      "input",
+      { id: "usernameInput", type: "text", }
+    );
 
     const submitButton = createElement(
       "button",
