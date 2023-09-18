@@ -53,7 +53,7 @@ function renderSetupPage(game, root) {
   updateBoard();
 
   // ship selection --------------------------------------------------------------------------------
-  const defaultShipList = game.getDefaultShipList();
+  const defaultShipList = game.player.ships;
 
   const shipSelectionContainer = createElement("div", {
     id: "shipSelectionContainer"
@@ -96,13 +96,22 @@ function renderSetupPage(game, root) {
   }
   boardAndSelectionContainer.append(gameBoardContainer, shipSelectionContainer);
 
-  // complete button -------------------------------------------------------------------------------
+  // randomize and complete button ----------------------------------------------------------------
+  const bottomButtonsContainer = createElement("div", { id: "bottomButtonsContainer" });
+
+  const randomizeButton = createElement("button", { id: "randomizeButton" }, "Randomize!");
+
+  randomizeButton.addEventListener("click", () => {
+    game.generateRandomBoard(game.playerBoard, game.player);
+  });
+
   const submitButton = createElement("button", { id: "setupSubmitButton" }, "Finished");
   const unfilledMessage = createElement(
     "h2",
     { id: "unfilledMessage" },
     "Please place all ships. One or more are missing"
   );
+
   submitButton.addEventListener("click", () => {
     if (allShipsUsed(defaultShipList)) {
       renderGamePage(game, root);
@@ -111,7 +120,8 @@ function renderSetupPage(game, root) {
     }
   });
 
-  root.append(directionButtonsContainer, boardAndSelectionContainer, submitButton);
+  bottomButtonsContainer.append(randomizeButton, submitButton);
+  root.append(directionButtonsContainer, boardAndSelectionContainer, bottomButtonsContainer);
 }
 
 module.exports = renderSetupPage;
