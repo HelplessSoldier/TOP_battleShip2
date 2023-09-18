@@ -37,6 +37,7 @@ class Game {
 
     const ships = player.ships;
     for (let ship of ships) {
+      board.removeShip(ship);
       const [location, delta] = pickRandom(board, ship);
       ship.location = location;
       ship.delta = delta;
