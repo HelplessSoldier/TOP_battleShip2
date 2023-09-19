@@ -3,8 +3,6 @@ const canAddShip = require("./gameBoardFunctions/canAddShip");
 const createElement = require("../helpers/createElement");
 const enemyMove = require("./gameBoardFunctions/enemyMove");
 const sunkCheck = require("./gameBoardFunctions/sunkCheck");
-const renderWinnderPage = require("../pages/winnerPage");
-const renderWinnerPage = require("../pages/winnerPage");
 
 class GameBoard {
   constructor(width, height) {

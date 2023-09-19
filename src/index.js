@@ -7,8 +7,6 @@ const renderWinnerPage = require("./pages/winnerPage");
 const root = document.getElementById("content");
 root.classList.add("userNamePage");
 
-console.log(`index: ${typeof root}`);
-
 async function startGame() {
   try {
     const playerName = await renderPlayerNamePage(root);
